@@ -1,0 +1,40 @@
+body {
+  margin:0;
+}
+
+body>div { /* divs with body as parent */
+  border: 1px black solid;
+  margin: 8px;
+}
+
+/* top area content */
+#main {
+  height: 650px;
+}
+
+#side {
+  width:        150px;
+  height:       100%;
+  border-right: 1px black solid;
+}
+
+
+
+
+/* bottom area content */
+#jsbox {
+  border:  0 0 0 0;
+  padding: 0;
+  margin:  0 0 -1px;
+  height:  268px;
+  width:   100%;
+  resize:  none; /* none, both, horizontal or vertical */
+}
+
+#jsbutton {
+  font-size:      15px;
+  font-weight:    600;
+  letter-spacing: 2px;
+  height:         25px;
+  width:          150px;
+}

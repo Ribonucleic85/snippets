@@ -1,0 +1,23 @@
+
+
+        orange          orange
+       .-------        -------.
+ green |\ white        white /| blue
+              \--------/
+              | yellow |
+              /--------\
+ green |/ white        white \| blue
+       '-------        -------'
+         red            red
+
+
+	
+top |  orange       |  front<>right
+-----               |  yellow<>red
+green   white   red |
+                    |  moves: confirmed
+       yellow       |    Dd R2 Dd2 F2 Dd
+
+edge pairs on the left and right of front
+diaganol to straight: R U R' U' F' U F
+   straight to fixed: Dd R F' U R' F Dd'

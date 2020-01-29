@@ -1,0 +1,68 @@
+<html><head>
+<title>Blank Page</title>
+<style type="text/css">
+.cubemain {
+    display:block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+}
+
+.cubemain .cubeface {
+    position:absolute;
+    width: 30px;
+    height: 30px;
+    border: 1px solid white;
+    background-color: aqua;
+    /* opacity: 0.5; */
+}
+
+.cubemain :nth-child(1) {    transform: translateZ(15px) !important;    background-color:black;}
+.cubemain :nth-child(2) {    transform: rotateX(90deg) translateZ(15px) !important;    background-color:blueviolet;}
+.cubemain :nth-child(3) {    transform: rotateX(270deg) translateZ(15px) !important;    background-color:orange;}
+.cubemain :nth-child(4) {    transform: rotateY(90deg) translateZ(15px) !important;    background-color:red;}
+.cubemain :nth-child(5) {    transform: rotateY(180deg) translateZ(15px) !important;    background-color:green;}
+.cubemain :nth-child(6) {    transform: rotateY(270deg) translateZ(15px) !important;}
+
+
+.rubiks-slice {
+    width: 30px;
+    height: 90px;
+    /* transform: rotateX(1057deg); */
+    transform-style: preserve-3d;
+    transform-origin: 45px 70px 31px;
+}
+
+.cube-transform {
+}
+
+.rubiks-slice :nth-child(1) { transform: translateZ(0px); }
+.rubiks-slice :nth-child(2) { transform: translateY(-30px) translateZ(30px); }
+.rubiks-slice :nth-child(3) { transform: translateY(-60px)  translateZ(60px); }
+
+.rubiks-slice :nth-child(4) {    transform: translateY(-60px);}
+.rubiks-slice :nth-child(5) {    transform: translateY(-90px) translateZ(30px);}
+.rubiks-slice :nth-child(6) {    transform: translateY(-120px) translateZ(60px);}
+
+.rubiks-slice :nth-child(7) {    transform: translateY(-120px);}
+.rubiks-slice :nth-child(8) {    transform: translateY(-150px) translateZ(30px);}
+.rubiks-slice :nth-child(9) {    transform: translateY(-180px) translateZ(60px);}
+
+</style>
+</head>
+
+<body><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><br><br><br><br><br><br><br><div class="rubiks-slice" style="
+    position: relative;
+    left: 30px;
+"><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div class="cube-transform"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div></div><div class="rubiks-slice" style="
+    position: relative;
+    left: 311px;
+    transform: rotateX(-193deg) rotateY(-388deg) rotateZ(455deg);
+"><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div><div class="cubemain"><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div><div class="cubeface"></div></div></div><div style="
+    border: 2px solid;
+    width: 42%;
+    position: absolute;
+    top: 295px;
+"></div></body></html>

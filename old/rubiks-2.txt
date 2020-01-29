@@ -1,0 +1,68 @@
+<html><head><title>Blank Page</title>
+
+<style type="text/css">
+div {
+    /* border: 1px solid black; */
+}
+
+.cube-slice {
+    width: 30px;
+    height: 90px;
+    /* overflow:hidden; */
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    position: absolute;
+    left: 400px;
+    top: 200;
+}
+
+.cube-slice div {
+    position:absolute;
+    opacity: 0.5;
+}
+
+.cube-edge-one {
+    transform: rotateX(90deg) translateZ(45px);
+    background-color: green;
+    height: 90px;
+    width: 30px;
+}
+
+.cube-edge-two {
+    transform: rotateX(180deg)translateZ(45px);
+    background-color: red;
+    height: 90px;
+    width: 30px;
+}
+
+.cube-edge-three {
+    transform: rotateX(270deg)translateZ(45px);
+    background-color: royalblue;
+    height: 90px;
+    width: 30px;
+}
+
+.cube-edge-four {
+    transform: translateZ(45px);
+    background-color: yellow;
+    height: 90px;
+    width: 30px;
+}
+
+.cube-face-one {
+    transform: rotateY(270deg) translateZ(15px);
+    background-color: cyan;
+    height: 90px;
+    width: 90px;
+}
+
+.cube-face-two {
+    transform: rotateY(90deg) translateZ(-45px);
+    background-color: black;
+    height: 90px;
+    width: 90px;
+    opacity: 1 !important;
+}
+</style>
+
+</head><body><div style="height: 90px; width: 90px; background-color: red; position: absolute; left: 370px; top: 108px;"><div style="width: 30px; height: 30px; background-color: coral; position: absolute; bottom: 1px; left: 30px;"></div></div><div style="height: 90px; width: 90px; background-color: red; position: absolute; left: 370px; top: 198px;"><div style="width: 30px; height: 30px; background-color: coral; position: absolute; bottom: 1px; left: 30px;"></div></div><div class="cube-slice"><div class="cube-edge-one"><div class="edge-one cube-cell"></div><br><div class="edge-two cube-cell"></div><br><div class="edge-three cube-cell"></div><br><div class="edge-four cube-cell"></div></div><div class="cube-edge-two"><div class="edge-one cube-cell"></div><br><div class="edge-two cube-cell"></div><br><div class="edge-three cube-cell"></div><br><div class="edge-four cube-cell"></div></div><div class="cube-edge-three"><div class="edge-one cube-cell"></div><br><div class="edge-two cube-cell"></div><br><div class="edge-three cube-cell"></div><br><div class="edge-four cube-cell"></div></div><div class="cube-edge-four"><div class="edge-one cube-cell"></div><br><div class="edge-two cube-cell"></div><br><div class="edge-three cube-cell"></div><br><div class="edge-four cube-cell"></div></div><div class="cube-face-one"><div class="face-one cube-cell"></div><div class="face-two cube-cell"></div><div class="face-three cube-cell"></div><br><div class="face-four cube-cell"></div><div class="face-five cube-cell"></div><div class="face-six cube-cell"></div><br><div class="face-seven cube-cell"></div><div class="face-eight cube-cell"></div><div class="face-nine cube-cell"></div></div><div class="cube-face-two"></div></div></body></html>

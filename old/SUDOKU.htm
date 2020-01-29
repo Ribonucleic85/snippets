@@ -1,0 +1,370 @@
+<html>
+<head><title>SUDOKU - Test</title>
+<script>
+//
+//     A B C   D E F   G H I
+//   --------|---------------|
+// 1 | j j j | k k k | l l l |
+// 2 | j j j | k k k | l l l |
+// 3 | j j j | k k k | l l l |
+//   |---------------|--------
+// 4 | m m m | n n n | o o o |
+// 5 | m m m | n n n | o o o |
+// 6 | m m m | n n n | o o o |
+//   --------|---------------|
+// 7 | p p p | q q q | r r r |
+// 8 | p p p | q q q | r r r |
+// 9 | p p p | q q q | r r r |
+//   |---------------|--------
+//
+
+/* shorcut functions */
+var debugstat = 0;
+
+var blankWindow = function()  { window.open('about:blank','_blank','left=0,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no'); }
+var byId        = function(x) { return document.getElementById(x); }
+var byTag       = function(x) { return document.getElementsByTagName(x); }
+var createEl    = function(x) { return document.createElement(x); }
+var emptyEl     = function(x) { while(x.hasChildNodes()) { x.removeChild(x.childNodes[0]); } }
+var Debug       = function()  { var msg; (debugstat==0)?(byId('container_2').style.display="none",debugstat=1,msg="off"):(byId('container_2').style.display="",debugstat=0,msg="on"); return "debug "+msg; }
+
+
+/* functions */
+
+var Sudoku={
+  cell:{
+    A1:[1,''], B1:[2,''], C1:[3,''], D1:[4,''], E1:[5,''], F1:[6,''], G1:[7,''], H1:[8,''], I1:[9,''], 
+    A2:[10,''],B2:[11,''],C2:[12,''],D2:[13,''],E2:[14,''],F2:[15,''],G2:[16,''],H2:[17,''],I2:[18,''],
+    A3:[19,''],B3:[20,''],C3:[21,''],D3:[22,''],E3:[23,''],F3:[24,''],G3:[25,''],H3:[26,''],I3:[27,''],
+    A4:[28,''],B4:[29,''],C4:[30,''],D4:[31,''],E4:[32,''],F4:[33,''],G4:[34,''],H4:[35,''],I4:[36,''],
+    A5:[37,''],B5:[38,''],C5:[39,''],D5:[40,''],E5:[41,''],F5:[42,''],G5:[43,''],H5:[44,''],I5:[45,''],
+    A6:[46,''],B6:[47,''],C6:[48,''],D6:[49,''],E6:[50,''],F6:[51,''],G6:[52,''],H6:[53,''],I6:[54,''],
+    A7:[55,''],B7:[56,''],C7:[57,''],D7:[58,''],E7:[59,''],F7:[60,''],G7:[61,''],H7:[62,''],I7:[63,''],
+    A8:[64,''],B8:[65,''],C8:[66,''],D8:[67,''],E8:[68,''],F8:[69,''],G8:[70,''],H8:[71,''],I8:[72,''],
+    A9:[73,''],B9:[74,''],C9:[75,''],D9:[76,''],E9:[77,''],F9:[78,''],G9:[79,''],H9:[80,''],I9:[81,'']
+  },
+
+  /*
+   this is useless without a function to make sense of it the comments to
+   the side show how to access the arrays from window level
+
+   the blocks are structured with an object containing objects containing
+   arrays whereas the columns and rows are objects that contains an array
+   containing arrays
+
+   the reason this is done is because there is one set of blocks with one
+   indexing system but rows and columns needed to be distinguished from
+   each other without a more complex indexing system than blocks which
+   would have been rx or cx where r=row, c=column and x=row/column number
+   but as we can see from the comments on the side the indexing systems
+   are the disregarding the names and the fact that blocks are lettered
+   and rows/columns are numbered
+  */
+  block:{
+    J:['A1','B1','C1','A2','B2','C2','A3','B3','C3'],
+    K:['D1','E1','F1','D2','E2','F2','D3','E3','F3'],
+    L:['G1','H1','I1','G2','H2','I2','G3','H3','I3'],
+    M:['A4','B4','C4','A5','B5','C5','A6','B6','C6'],
+    N:['D4','E4','F4','D5','E5','F5','D6','E6','F6'],  // Sudoku['block'][#]
+    O:['G4','H4','I4','G5','H5','I5','G6','H6','I6'],  // where # is the block
+    P:['A7','B7','C7','A8','B8','C8','A9','B9','C9'],  // letter
+    Q:['D7','E7','F7','D8','E8','F8','D9','E9','F9'],
+    R:['G7','H7','I7','G8','H8','I8','G9','H9','I9']
+  },
+  row:[
+    ['A1','B1','C1','D1','E1','F1','G1','H1','I1'],
+    ['A2','B2','C2','D2','E2','F2','G2','H2','I2'],
+    ['A3','B3','C3','D3','E3','F3','G3','H3','I3'],
+    ['A4','B4','C4','D4','E4','F4','G4','H4','I4'],
+    ['A5','B5','C5','D5','E5','F5','G5','H5','I5'],   // Sudoku['row'][x]
+    ['A6','B6','C6','D6','E6','F6','G6','H6','I6'],   // where x is the
+    ['A7','B7','C7','D7','E7','F7','G7','H7','I7'],   // row number
+    ['A8','B8','C8','D8','E8','F8','G8','H8','I8'],
+    ['A9','B9','C9','D9','E9','F9','G9','H9','I9']
+  ],
+  column:[
+    ['A1','A2','A3','A4','A5','A6','A7','A8','A9'],
+    ['B1','B2','B3','B4','B5','B6','B7','B8','B9'],
+    ['C1','C2','C3','C4','C5','C6','C7','C8','C9'],
+    ['D1','D2','D3','D4','D5','D6','D7','D8','D9'],
+    ['E1','E2','E3','E4','E5','E6','E7','E8','E9'],
+    ['F1','F2','F3','F4','F5','F6','F7','F8','F9'],   // Sudoku['column'][x]
+    ['G1','G2','G3','G4','G5','G6','G7','G8','G9'],   // where x is the column
+    ['H1','H2','H3','H4','H5','H6','H7','H8','H9'],   // number
+    ['I1','I2','I3','I4','I5','I6','I7','I8','I9']
+  ],
+}
+
+
+//charposition starts at 1
+var replacecharat=function(string,charposition,newchar){
+  return string.substring(0,(charposition-1))+newchar+string.substring(charposition,string.length);
+}
+
+
+var readcellfrom=function(type,index,subindex){
+  return byId('c'+Sudoku['cell'][Sudoku[type][index][subindex]][0]).value;
+}
+
+
+var eliminatesolutionfromset=function(type,index,solution){
+  var nsolution=solution;
+
+  !(solution>3)||(nsolution=solution+1);
+  !(solution>6)||(nsolution=solution+2);
+
+  for(var i=0;i<9;i++){
+    var S                = Sudoku['cell'][Sudoku[type][index][i]];
+    S[1]                 = replacecharat(S[1],solution,' ');
+    byId('s'+S[0]).value = replacecharat(byId('s'+S[0]).value,nsolution,' ');
+  }
+}
+
+
+var addsolutiontoset=function(type,index,solution){
+  var nsolution=solution;
+
+  !(solution>3)||(nsolution=solution+1);
+  !(solution>6)||(nsolution=solution+2);
+
+  for(var i=0;i<9;i++){
+    var S                = Sudoku['cell'][Sudoku[type][index][i]];
+    S[1]                 = replacecharat(S[1],solution,solution);
+    byId('s'+S[0]).value = replacecharat(byId('s'+S[0]).value,nsolution,solution);
+  }
+}
+
+
+var removefixednumbersfromsolutionat=function(type,index){
+  for(var i=0;i<9;i++){
+    if(byId('c'+Sudoku['cell'][Sudoku[type][index][i]][0]).value!=''){
+      eliminatesolutionfromset(type,index,1*byId('c'+Sudoku['cell'][Sudoku[type][index][i]][0]).value);
+    }
+  }
+}
+
+
+var removeallfixednumbersfromsolutions=function(){
+  var set=['row','column'];
+
+  for(var i=0;i<2;i++){
+    for(var j=0;j<9;j++){
+      removefixednumbersfromsolutionat(set[i],j);
+    }
+  }
+
+  for(i=19;i<28;i++){
+    removefixednumbersfromsolutionat('block',i.toString(28).toUpperCase());
+  }
+}
+
+
+var resetsolutions=function(colorreset){
+  for(var j=10;j<19;j++){
+    for(var i=1;i<10;i++){
+      Sudoku.cell[j.toString(19).toUpperCase()+i][1]='123456789';
+    }
+  }
+
+  for(i=1; i<82; i++){
+    byId('s'+i).value="123\n456\n789";
+    if(colorreset){
+      byId('s'+i).style.color="#000000";
+    }
+    byId('s'+i).style.fontSize='12px';
+  }
+}
+
+var newinsolution=function(){
+  resetsolutions(false);
+  removeallfixednumbersfromsolutions();
+
+  for(var i=1; i<82; i++) {
+    var j=byId('c'+i);
+    var k=byId('s'+i);
+
+    if(j.value>0) {
+      k.value=j.value;
+      k.style.fontSize='40px';
+    }
+    else {
+      k.style.fontSize='12px';
+    }
+  }
+}
+
+var forcedinsolution=function(){
+  newinsolution();
+
+  for(var i=1; i<82; i++) {
+    var h=byId('s'+i);
+    var j=byId('c'+i);
+
+    if (h.value.length==1) {
+      if (j.style.color=="#ff0000" ||
+          j.style.color=="rgb(255, 0, 0)") {
+        h.style.color="#ff0000";
+      }
+      else {
+        h.style.color="#000000";
+      }
+    }
+  }
+}
+
+
+var selected_cell="";
+var selected_number="";
+
+var switchview=function(r){
+  var a = byId('container_1'); //game board
+  var as = a.style;      as.position = "absolute";
+  as.left = "8px";   as.top = "8px";
+
+  switch(r){
+    case "l":  //landscape
+      a = byId('container_2'); //js form
+      as = a.style;      as.position = "absolute";
+      as.left = "8px";   as.top = "250px";
+
+      a = byId('container_3'); //solution grid
+      as = a.style;      as.position = "absolute";
+      as.left = "355px"; as.top = "8px";
+
+      a = byId('container_4'); //input pad
+      as = a.style;      as.position = "absolute";
+      as.left = "240px"; as.top = "8px";
+    break;
+
+    case "p": //portrait
+      a = byId('container_2'); //js form
+      as = a.style;      as.position = "absolute";
+      as.left = "355px"; as.top = "8px";
+
+      a = byId('container_3'); //solution grid
+      as = a.style;      as.position = "absolute";
+      as.left = "8px";   as.top = "250px";
+
+      a = byId('container_4'); //input pad
+      as = a.style;      as.position = "absolute";
+      as.left = "240px"; as.top = "8px";
+    break;
+    default:break;
+  }
+}
+
+
+var number=function() {
+  byId(selected_cell).value=selected_number;
+}
+
+
+var preset={
+  set: function() {
+    if(editpreset.status=="on") { editpreset.OFF(); }
+    byId('editpreset').disabled='';
+
+    byId('preset').value='Undo Preset';
+    byId('preset').setAttribute('onclick','preset.undo();void(0);');
+
+    for(var i=1;i<82;i++) {
+      var j=byId('c'+i);
+      var js=j.style;
+
+      if(j.value>0) {
+        js.color='#ff0000';
+        j.disabled='true';
+      }
+      else {
+        js.color='#000000';
+        j.disabled='';
+      }
+    }
+  },
+  undo: function() {
+    if(editpreset.status=="on") { editpreset.OFF(); }
+    byId('editpreset').disabled='true';
+
+    byId('preset').value='Preset';
+    byId('preset').setAttribute('onclick','preset.set();void(0);');
+
+    for(var i=1;i<82;i++) {
+      var j=byId('c'+i);
+      var js=j.style;
+
+      if(j.value>0 && (js.color=="#ff0000" || js.color=="rgb(255, 0, 0)")) {
+        js.color='#000000';
+        j.disabled='';
+      }
+    }
+  }
+}
+
+
+var editpreset={
+  ON: function() {
+    if(editpreset.status=="on") { return false; }
+
+    editpreset.status="on";
+    byId('editpreset').value='Edit Preset OFF';
+    byId('editpreset').setAttribute('onclick','editpreset.OFF();void(0);');
+
+    for(var i=1;i<82;i++) {
+      var j=byId('c'+i);
+      var js=j.style;
+
+      if(j.value>0 && (js.color=="#ff0000" || js.color=="rgb(255, 0, 0)")) {
+        js.color='#0000ff';
+        j.disabled='';
+      }
+    }
+
+    return true;
+  },
+  OFF: function() {
+    if(editpreset.status=="off") { return false; }
+
+    editpreset.status="off";
+    byId('editpreset').value='Edit Preset ON';
+    byId('editpreset').setAttribute('onclick','editpreset.ON();void(0);');
+
+    for(var i=1;i<82;i++) {
+      var j=byId('c'+i);
+      var js=j.style;
+
+      if(j.value>0 && (js.color=="#0000ff" || js.color=="rgb(0, 0, 255)")) {
+        js.color='#ff0000';
+        j.disabled='true';
+      }
+    }
+
+    return true;
+  },
+  status: "off"
+}
+</script>
+</head>
+<body>
+<!-- game board -->
+<span id="container_1"><input type="text" id="c1" onclick="selected_cell='c1';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; background-color:#ffffff;" /><input type="text" id="c2" onclick="selected_cell='c2';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><input type="text" id="c3" onclick="selected_cell='c3';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c4" onclick="selected_cell='c4';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><input type="text" id="c5" onclick="selected_cell='c5';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><input type="text" id="c6" onclick="selected_cell='c6';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c7" onclick="selected_cell='c7';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><input type="text" id="c8" onclick="selected_cell='c8';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><input type="text" id="c9" onclick="selected_cell='c9';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c10" onclick="selected_cell='c10';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c11" onclick="selected_cell='c11';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c12" onclick="selected_cell='c12';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c13" onclick="selected_cell='c13';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c14" onclick="selected_cell='c14';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c15" onclick="selected_cell='c15';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c16" onclick="selected_cell='c16';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c17" onclick="selected_cell='c17';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c18" onclick="selected_cell='c18';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c19" onclick="selected_cell='c19';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c20" onclick="selected_cell='c20';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c21" onclick="selected_cell='c21';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c22" onclick="selected_cell='c22';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c23" onclick="selected_cell='c23';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c24" onclick="selected_cell='c24';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c25" onclick="selected_cell='c25';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c26" onclick="selected_cell='c26';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c27" onclick="selected_cell='c27';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><br /><input type="text" id="c28" onclick="selected_cell='c28';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c29" onclick="selected_cell='c29';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c30" onclick="selected_cell='c30';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c31" onclick="selected_cell='c31';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c32" onclick="selected_cell='c32';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c33" onclick="selected_cell='c33';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c34" onclick="selected_cell='c34';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c35" onclick="selected_cell='c35';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c36" onclick="selected_cell='c36';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c37" onclick="selected_cell='c37';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c38" onclick="selected_cell='c38';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c39" onclick="selected_cell='c39';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c40" onclick="selected_cell='c40';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c41" onclick="selected_cell='c41';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c42" onclick="selected_cell='c42';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c43" onclick="selected_cell='c43';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c44" onclick="selected_cell='c44';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c45" onclick="selected_cell='c45';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c46" onclick="selected_cell='c46';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c47" onclick="selected_cell='c47';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c48" onclick="selected_cell='c48';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c49" onclick="selected_cell='c49';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c50" onclick="selected_cell='c50';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c51" onclick="selected_cell='c51';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c52" onclick="selected_cell='c52';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c53" onclick="selected_cell='c53';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c54" onclick="selected_cell='c54';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; background-color:#ffffff;" /><br /><input type="text" id="c55" onclick="selected_cell='c55';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c56" onclick="selected_cell='c56';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c57" onclick="selected_cell='c57';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c58" onclick="selected_cell='c58';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c59" onclick="selected_cell='c59';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c60" onclick="selected_cell='c60';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c61" onclick="selected_cell='c61';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c62" onclick="selected_cell='c62';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c63" onclick="selected_cell='c63';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c64" onclick="selected_cell='c64';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c65" onclick="selected_cell='c65';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c66" onclick="selected_cell='c66';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c67" onclick="selected_cell='c67';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c68" onclick="selected_cell='c68';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c69" onclick="selected_cell='c69';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c70" onclick="selected_cell='c70';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c71" onclick="selected_cell='c71';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c72" onclick="selected_cell='c72';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /><input type="text" id="c73" onclick="selected_cell='c73';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; background-color:#ffffff;" /><input type="text" id="c74" onclick="selected_cell='c74';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c75" onclick="selected_cell='c75';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c76" onclick="selected_cell='c76';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c77" onclick="selected_cell='c77';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c78" onclick="selected_cell='c78';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; background-color:#ffffff;" /><input type="text" id="c79" onclick="selected_cell='c79';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c80" onclick="selected_cell='c80';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><input type="text" id="c81" onclick="selected_cell='c81';number();void(0);" onfocus="blur();" style="width:25px; text-align:center; border:1px solid #CC88FF; border-top:0px; border-left:0px; background-color:#ffffff;" /><br /></span>
+
+<!-- solution grid (not yet useful due to no solving algorithm(s)) -->
+<span id="container_3"><textarea id="s1" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; " disabled></textarea><textarea id="s2" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><textarea id="s3" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s4" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><textarea id="s5" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><textarea id="s6" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s7" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><textarea id="s8" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><textarea id="s9" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-left:0px; " disabled></textarea><br /><textarea id="s10" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s11" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s12" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s13" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s14" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s15" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s16" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s17" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s18" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /><textarea id="s19" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s20" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s21" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s22" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s23" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s24" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s25" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s26" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s27" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><br /><textarea id="s28" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s29" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s30" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s31" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s32" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s33" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s34" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s35" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s36" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /><textarea id="s37" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s38" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s39" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s40" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s41" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s42" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s43" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s44" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s45" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /><textarea id="s46" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s47" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s48" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s49" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s50" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s51" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s52" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s53" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><textarea id="s54" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-bottom:2px solid #ff0000; " disabled></textarea><br /><textarea id="s55" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s56" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s57" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s58" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s59" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s60" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s61" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s62" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s63" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /><textarea id="s64" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s65" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s66" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s67" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s68" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s69" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s70" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s71" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s72" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /><textarea id="s73" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; " disabled></textarea><textarea id="s74" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s75" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s76" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s77" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s78" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; border-right:2px solid #ff0000; " disabled></textarea><textarea id="s79" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s80" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><textarea id="s81" wrap="off" style="letter-spacing:9px; width:50px; height:46px; margin-bottom:-1px; overflow:hidden; resize:none; color:#000000; cursor:default; border:1px solid #CC88FF; border-top:0px; border-left:0px; " disabled></textarea><br /></span>
+
+<!-- javascript form (hidden by default, use Debug() to show it) -->
+<span id="container_2" style=""><textarea id="js_" wrap="off" style="border:1px solid #ff0000; resize:both;"></textarea><input type="button" id="js_b" style="position:relative; bottom:2px; left:-1px; border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" onclick="javascript: eval(byId('js_').value); byId('js_').focus(); void(0)" /></span>
+
+<!-- input pad, layout control and puzzle control -->
+<span id="container_4" style="width:114px;text-align:center;"><input type="button" value="1" onclick="selected_number=1;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="2" onclick="selected_number=2;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="3" onclick="selected_number=3;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><br /><input type="button" value="4" onclick="selected_number=4;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="5" onclick="selected_number=5;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="6" onclick="selected_number=6;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><br /><input type="button" value="7" onclick="selected_number=7;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="8" onclick="selected_number=8;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="9" onclick="selected_number=9;void(0);" style="border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><br /><input type="button" value="-" onclick="selected_number='';void(0);" style="width:27px; border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="C" onclick="selected_number='';void(0);" style="width:27px; border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><input type="button" value="+" onclick="selected_number='';void(0);" style="width:27px; border:1px solid #ff0000; background-color:#ff9966; color:#ff0000;" /><br /><br /><input type="button" value="Landscape" onclick="switchview('l');void(0);" style="border:1px solid #FF0060; background-color:#FF98FF; color:#FF0060;" /><br /><input type="button" value="Portrait" onclick="switchview('p');void(0);" style="border:1px solid #FF0060; background-color:#FF98FF; color:#FF0060;" /><br /><br /><input type="button" id="preset" value="Preset" onclick="preset.set();void(0);" style="border:1px solid #002800; background-color:#00E000; color:#002800;" /><br /><input type="button" value="Edit Preset ON" id="editpreset" onclick="editpreset.ON();void(0);" style="border:1px solid #002800; background-color:#00E000; color:#002800;" /><br /><br /><a href="javascript:newinsolution()">newinsolution</a><br /><a href="javascript:forcedinsolution()">forcedinsolution</a><br /><a href="javascript:resetsolutions(true)">resetsolutions</a></span>
+
+<script>
+//fill solution with default values
+resetsolutions();
+
+//set page layout
+switchview('l');
+</script>
+
+
+</body>
+</html>

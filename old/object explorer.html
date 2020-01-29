@@ -1,0 +1,109 @@
+<html><head><title>object explorer</title></head>
+<body><div style="position: relative; top: 0;background-color: red;">
+<div style="display: inline-block;"><textarea id="jscode_a"
+ style="margin: 0px; height: 422px; width: 419px;">/*  object traversal practice  */
+/*
+var hell = {
+  a: { aa:[0,1], ab:[1,2],
+       ac:[2,3], ad:[3,4] },
+
+  b: { ba:"z", bb:"y",
+       bc:"x", bd:"w" },
+
+  c: { ca:["f","g"], cb:["h","i"],
+       cc:["j","k"], cd:["l","m"] },
+
+  d: { da:0, db:1, dc:2, dd:3 },
+
+  e: { ea: {eaa:"", eab:""},
+       eb: {eba:"", ebb:""},
+       ec: {eca:"", ecb:""},
+       ed: {eda:"", edb:""} }
+}
+*/
+window.heaven_one = {
+  AA:"00", AB:"01", AC:"02",
+  B: { BA:"10", BB:"11", BC:"12" },
+  C: { CA:"20", CB:"21", CC:"22" }
+}
+window.heaven_two = {
+  A: {
+   AA:{ AAA:0, AAB:0, AAC:0 },
+   AB:{ ABA:0, ABB:0, ABC:0 },
+   AC:{ ACA:0, ACB:0, ACC:0 }
+  },
+  B: {
+   BA:{ BAA:0, BAB:0, BAC:0 },
+   BB:{ BBA:0, BBB:0, BBC:0 },
+   BC:{ BCA:0, BCB:0, BCC:0 }
+  },
+  C: {
+   CA: {CAA:0, CAB:0, CAC:0},
+   CB: {CBA:0, CBB:0, CBC:0},
+   CC: {CCA:0, CCB:0, CCC:0}
+  }
+}</textarea><br>
+<input type="button" value="run javascript"
+ onclick="javascript:runjs=document.getElementById('jscode_a');eval(runjs.value);runjs.focus();"></div>
+
+<div style="display: inline-block;"><textarea id="jscode_b"
+  style="margin: 0px; height: 422px; width: 434px; border-color: red;">/*
+  for (o in obj) {}
+    'o' is the nth property of
+    object 'obj' similar to
+    'i' in 'array[i]'
+*/
+
+function traverse_customA(obj,ta)
+{
+  for (var o in obj)
+  {
+    if (obj[o] == "[object Object]")
+    {
+      // step into obj[o] with new
+      // instance of this function
+
+      ta.value += o.toString()+':{\n'; //extra
+      traverse_customA(obj[o],ta);
+      ta.value += '}\n';   //extra
+    }
+    else
+    {
+      ta.value += o.toString()+':'+obj[o]+' ';
+
+      // replace this step with
+      // a function injected in
+      // to the 'ta' variable
+    }
+  }
+}
+
+
+
+/*  simple object traverser with
+**  no prototype exclusion
+*/
+function traverse(obj,fn)
+{
+  for (var o in obj)
+  {
+    if (obj[o] == "[object Object]")
+      traverse(obj[o], fn);
+      // traverse deeper
+
+    else
+      fn(obj[o]);
+      // process obj[o] with function fn
+  }
+}
+
+traverse_customA(heaven_one,
+  document.getElementById('jsoutput'))</textarea><br>
+<input type="button" value="run javascript"
+ onclick="javascript:runjs=document.getElementById('jscode_b');eval(runjs.value);runjs.focus();"
+ style="color: red;"></div>
+</div>
+
+<div style="position: absolute; bottom: 8;"><textarea id="jsoutput"
+ style="margin:0px; width:542px; height: 235px; border-color:rgb(47, 255, 129); border-width:10;"></textarea></div>
+</body>

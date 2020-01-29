@@ -1,0 +1,330 @@
+<html>
+<head>
+<title>..:: HTML Document Creator ::..</title>
+<script>
+var Hshells, HspTags, HtmlTags, HtmlAttr, TagIt, refine;
+
+
+
+function HTMLversion(v,output) {
+  HspTags = ["<!--","-->"];
+  Hshells = [["<","</"], [">","/>"]];
+
+  switch(v) {
+    case "4.01":
+//start tag/end tag/empty => 2(O)ptional, 1(F)orbidden, 0(E)mpty
+//DTD => 0(L)oose, 1(F)rameset, 2(B)oth
+//deprecated => 1(D)eprecated, 0(N)ot Deprecated
+
+      HtmlTags =  [["a",	"00110"],["abbr",	"00100"],["acronym",	"00100"],
+		["address",	"00110"],["applet",	"00111"],["area",	"11000"],
+		["b",		"00110"],["base",	"11000"],["basefont",	"11011"],
+		["bdo",		"00110"],["big",	"00100"],["blockquote",	"00100"],
+		["body",	"02110"],["br",		"11000"],["button",	"00100"],
+		["caption",	"00110"],["center",	"00111"],["cite",	"00100"],
+		["code",	"00110"],["col",	"11000"],["colgroup",	"02100"],
+		["dd",		"02110"],["del",	"00100"],["dfn",	"00100"],
+		["dir",		"00101"],["div",	"00100"],["dl",		"00100"],
+		["dt",		"02110"],["em",		"00100"],["fieldset",	"00100"],
+		["font",	"00101"],["form",	"00100"],["frame",	"11022"],
+		["frameset",	"00112"],["h",		"00100"],["head",	"02100"],
+		["hr",		"11000"],["html",	"02100"],["i",		"00100"],
+		["iframe",	"00110"],["img",	"11000"],["input",	"11000"],
+		["ins",		"00100"],["isindex",	"11011"],["kbd",	"00100"],
+		["label",	"00100"],["legend",	"00100"],["li",		"02100"],
+		["link",	"11000"],["map",	"00100"],["menu",	"00111"],
+		["meta",	"11000"],["noframes",	"00122"],["noscript",	"00100"],
+		["object",	"00100"],["ol",		"00100"],["optgroup",	"00100"],
+		["option",	"02100"],["p",		"02100"],["param",	"11000"],
+		["pre",		"00100"],["q",		"00100"],["s",		"00111"],
+		["samp",	"00100"],["script",	"00100"],["select",	"00100"],
+		["small",	"00100"],["span",	"00100"],["strike",	"00111"],
+		["strong",	"00100"],["style",	"00100"],["sub",	"00100"],
+		["sup",		"00100"],["table",	"00100"],["tbody",	"02100"],
+		["td",		"02100"],["textarea",	"00100"],["tfoot",	"02100"],
+		["th",		"02100"],["thead",	"02100"],["title",	"00100"],
+		["tr",		"02100"],["tt",		"00100"],["u",		"00111"],
+		["ul",		"00100"],["var",	"00100"]];
+
+      HtmlAttr =  [["abbr",		TagListExpand("0000000008008000000000")],
+		["accept-charset",	TagListExpand("0000000002000000000000")],
+		["accept",		TagListExpand("0000000002000000000200")],
+		["accesskey",		TagListExpand("1440010000800010000200")],
+		["action",		TagListExpand("0000000002000000000000")],
+		["align",		TagListExpand("004210088848A869022310")],
+		["alink",		TagListExpand("0000000000001000000000")],
+		["alt",			TagListExpand("0000110000000000002200")],
+		["archive",		TagListExpand("0000100000400000000000")],
+		["axis",		TagListExpand("0000000008008000000000")],
+		["background",		TagListExpand("0000000000001000000000")],
+		["bgcolor",		TagListExpand("0000000808009008000000")],
+		["border",		TagListExpand("0000000800400000002000")],
+		["cellpadding",		TagListExpand("0000000800000000000000")],
+		["cellspacing",		TagListExpand("0000000800000000000000")],
+		["char",		TagListExpand("0000000088088808000110")],
+		["charoff",		TagListExpand("0000000088088808000110")],
+		["charset",		TagListExpand("1000400000000000000040")],
+		["checked",		TagListExpand("0000000000000000000200")],
+		["cite",		TagListExpand("2000000000010000040020")],
+		["class",		TagListExpand("FFFF7FFAEFFFFD79FFFF37")],
+		["classid",		TagListExpand("0000000000400000000000")],
+		["clear",		TagListExpand("0000000000000100000000")],
+		["code",		TagListExpand("0000100000000000000000")],
+		["codebase",		TagListExpand("0000100000400000000000")],
+		["codetype",		TagListExpand("0000000000400000000000")],
+		["color",		TagListExpand("0000000030000000000000")],
+		["cols",		TagListExpand("0000000000820000000000")],
+		["colspan",		TagListExpand("0000000008008000000000")],
+		["compact",		TagListExpand("0020204000040000008000")],
+		["content",		TagListExpand("0000000400000000000000")],
+		["coords",		TagListExpand("1000010000000000000000")],
+		["data",		TagListExpand("0000000000400000000000")],
+		["datetime",		TagListExpand("2000000000000000000020")],
+		["declare",		TagListExpand("0000000000400000000000")],
+		["defer",		TagListExpand("0000000000000000000040")],
+		["dir",			TagListExpand("FFFFEFFEEFDDFEFBFDFF37")],
+		["disabled",		TagListExpand("0000000000804410000204")],
+		["enctype",		TagListExpand("0000000002000000000000")],
+		["face",		TagListExpand("0000000030000000000000")],
+		["for",			TagListExpand("0400000000000000000000")],
+		["frame",		TagListExpand("0000000800000000000000")],
+		["frameborder",		TagListExpand("0000000000200000020000")],
+		["headers",		TagListExpand("0000000008008000000000")],
+		["height",		TagListExpand("0000100008408000022000")],
+		["href",		TagListExpand("1000410100000000000000")],
+		["hreflang",		TagListExpand("1000400000000000000000")],
+		["hspace",		TagListExpand("0000100000400000002000")],
+		["http-equiv",		TagListExpand("0000000400000000000000")],
+		["id",			TagListExpand("FFFF7FFAFFFFFD7DFFFF37")],
+		["ismap",		TagListExpand("0000000000000000002200")],
+		["label",		TagListExpand("0000000000004400000000")],
+		["lang",		TagListExpand("FFFFEFFEEFDDFEFBFDFF37")],
+		["language",		TagListExpand("0000000000000000000040")],
+		["link",		TagListExpand("0000000000001000000000")],
+		["longdesc",		TagListExpand("0000000000200000022000")],
+		["marginheight",	TagListExpand("0000000000200000020000")],
+		["marginwidth",		TagListExpand("0000000000200000020000")],
+		["maxlength",		TagListExpand("0000000000000000000200")],
+		["media",		TagListExpand("0000C00000000000000000")],
+		["method",		TagListExpand("0000000002000000000000")],
+		["multiple",		TagListExpand("0000000000000000000004")],
+		["name",		TagListExpand("1000140402E00014022204")],
+		["nohref",		TagListExpand("0000010000000000000000")],
+		["noresize",		TagListExpand("0000000000200000000000")],
+		["noshade",		TagListExpand("0000000000000020000000")],
+		["nowrap",		TagListExpand("0000000008008000000000")],
+		["object",		TagListExpand("0000100000000000000000")],
+		["onblur",		TagListExpand("1400010000800010000204")],
+		["onchange",		TagListExpand("0000000000800000000204")],
+		["onclick",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["ondblclick",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onfocus",		TagListExpand("1400010000800010000204")],
+		["onkeydown",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onkeypress",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onkeyup",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onload",		TagListExpand("0000000000021000000000")],
+		["onmousedown",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onmousemove",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onmouseout",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onmouseover",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onmouseup",		TagListExpand("FFFF6FFACEDDFC79FDFF35")],
+		["onreset",		TagListExpand("0000000002000000000000")],
+		["onselect",		TagListExpand("0000000000800000000200")],
+		["onsubmit",		TagListExpand("0000000002000000000000")],
+		["onunload",		TagListExpand("0000000000021000000000")],
+		["profile",		TagListExpand("0000000000000200000000")],
+		["prompt",		TagListExpand("0000000000000000000002")],
+		["readonly",		TagListExpand("0000000000800000000200")],
+		["rel",			TagListExpand("1000400000000000000000")],
+		["rev",			TagListExpand("1000400000000000000000")],
+		["rows",		TagListExpand("0000000000820000000000")],
+		["rowspan",		TagListExpand("0000000008008000000000")],
+		["rules",		TagListExpand("0000000800000000000000")],
+		["scheme",		TagListExpand("0000000400000000000000")],
+		["scope",		TagListExpand("0000000008008000000000")],
+		["scrolling",		TagListExpand("0000000000200000020000")],
+		["selected",		TagListExpand("0000000000000400000000")],
+		["shape",		TagListExpand("1000010000000000000000")],
+		["size",		TagListExpand("0000000030000020000204")],
+		["span",		TagListExpand("0000000000000000000110")],
+		["src",			TagListExpand("0000000000200000022240")],
+		["standby",		TagListExpand("0000000000400000000000")],
+		["start",		TagListExpand("0000000000040000000000")],
+		["style",		TagListExpand("FFFF7FFAEFFFFD79FFFF37")],
+		["summary",		TagListExpand("0000000800000000000000")],
+		["tabindex",		TagListExpand("1000010000C00010000204")],
+		["target",		TagListExpand("1000410102000000000000")],
+		["text",		TagListExpand("0000000000001000000000")],
+		["title",		TagListExpand("FFFFFFFAEFFFFD79FFFF37")],
+		["type",		TagListExpand("1004C00000440014008240")],
+		["usemap",		TagListExpand("0000000000400000002200")],
+		["valign",		TagListExpand("0000000088088808000110")],
+		["value",		TagListExpand("0004000000000414000200")],
+		["valuetype",		TagListExpand("0000000000000004000000")],
+		["version",		TagListExpand("0000000000000002000000")],
+		["vlink",		TagListExpand("0000000000001000000000")],
+		["vspace",		TagListExpand("0000100000400000002000")],
+		["width",		TagListExpand("0000100808408020422110")]];
+    break;
+
+    default:break;
+  }
+}
+
+function TagListExpand(x) {
+  var y = [];
+  var z = [];
+  var zc = 0;
+
+  for (i=0; i<x.length; i++) {
+    var xy = x.charAt(i);
+
+    switch(xy) {
+      case "0": y[i] = "0000"; break;
+      case "1": y[i] = "1000"; break;
+      case "2": y[i] = "0100"; break;
+      case "3": y[i] = "1100"; break;
+      case "4": y[i] = "0010"; break;
+      case "5": y[i] = "1010"; break;
+      case "6": y[i] = "0110"; break;
+      case "7": y[i] = "1110"; break;
+      case "8": y[i] = "0001"; break;
+      case "9": y[i] = "1001"; break;
+      case "A": y[i] = "0101"; break;
+      case "B": y[i] = "1101"; break;
+      case "C": y[i] = "0011"; break;
+      case "D": y[i] = "1011"; break;
+      case "E": y[i] = "0111"; break;
+      case "F": y[i] = "1111"; break;
+      default: break;
+    }
+  }
+
+  for (h=0; h<4; h++) {
+    for (j=0; j<y.length; j++) {
+      if (j+h*y.length<86 && y[j].charAt(h)==1) {
+        z[zc] = j+h*y.length;
+        zc++;
+      }
+    }
+  }
+
+  return z;
+}
+
+function CompatibleAttributes() {
+  document.getElementById('CompatibleAttributes').innerHTML="";
+
+  for (i=0; i<HtmlAttr.length; i++) {
+    for (j=0; j<HtmlAttr[i][1].length; j++) {
+      if ((document.getElementById('Tags').selectedIndex-1)==HtmlAttr[i][1][j]) {
+        option = null;
+        option = document.createElement('option');
+        option.innerHTML = HtmlAttr[i][0];
+
+        document.getElementById('CompatibleAttributes').appendChild(option);
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  margin: 0px 0px 0px 3px;
+}
+
+.cube {
+  height: 49.75%;
+  width: 49.75%;
+  overflow-y: scroll;
+  overflow-x: auto;
+  display: block;
+  float: left;
+}
+
+#pageitems {
+  width: 100%;
+  border: 1px solid #000000;
+}
+
+#e1, #e2, #e3 {
+  display: none;
+}
+
+.ff td {
+  width: 50%;
+  height: 50%;
+}
+
+#js {
+  margin: 3px;
+}
+
+select, input {
+  border: 2px solid #ff0000;
+}
+
+select:hover, input:hover {
+  border: 2px solid #00ff00;
+}
+</style>
+</head>
+
+<body onload="">
+<div class="cube">
+<table id="pageitems"></table>
+</div>
+
+<div class="cube">cube 2</div>
+
+<div class="cube">
+ Javascript tester:<input type="text" id="js" /><span
+ style="color:#0000ff; border:0px solid; cursor:pointer;"
+ onclick="javascript:eval(getElementById('js').value);">process
+ js</span><br />
+
+ <select id="Tags" size="6" style="width:105px;" onchange="javascript:CompatibleAttributes();">
+  <option selected="selected" disabled>Choose a tag</option>
+  <script>
+  HTMLversion('4.01');
+
+  for (i=0; i<HtmlTags.length; i++) {
+    document.write('<option>'+HtmlTags[i][0]+'</option>');
+  }
+  </script>
+ </select>
+
+ <script>document.getElementById('Tags').options[0].selected=true;</script>
+
+ <select multiple="multiple" size="6" style="width:100px;" id="CompatibleAttributes">
+  <option disabled>Choose</option>
+  <option disabled>a</option>
+  <option disabled>tag</option>
+ </select><br />
+
+ <input type="text" id="output" style="width:100px;" disabled />
+</div>
+
+<div class="cube" id="printout">cube 4</div>
+
+
+
+
+
+
+
+<!-- TEST ELEMENTS FROM THIS POINT ONWARD -->
+<div id="e1">
+ <div id="e1_1">element 1.1</div>
+ <div id="e1_2">element 1.2</div>
+</div>
+
+<div id="e2">
+ <div id="e2_1">element 2.1</div>
+ <div id="e2_2">element 2.2</div>
+</div>
+
+<div id="e3"></div>
+</body>
+</html>

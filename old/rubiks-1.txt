@@ -1,0 +1,109 @@
+<html><head><title>Rubiks 3x3x3 test 1</title></head><body><div class="cubelet" style="/* transform: rotateX(-15deg) rotateY(13deg) rotateZ(0deg); */ position: relative; top: 30px; left: 30px;"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="3x3-cube" id="master-cube" style="position: absolute; top: 200px; left: 200px;"><div class="cubelet c1"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c2" style="
+    transform: translateX(76px) rotate(0deg);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c3" style="transform: translateX(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c4" style="transform: translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c5" style="transform: translateX(76px) translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c6" style="transform: translateX(152px) translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c7" style="transform: translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c8" style="transform: translateX(76px) translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c9" style="transform: translateX(152px) translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c10" style="
+    transform: translateZ(76px) rotate(360deg);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c11" style="transform: translateX(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c12" style="transform: translateX(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c13" style="transform: translateY(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c14" style="transform: translateX(152px) translateY(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c15" style="transform: translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c16" style="transform: translateX(76px) translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c17" style="transform: translateX(152px) translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c18" style="transform: translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c19" style="transform: translateX(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c20" style="transform: translateX(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c21" style="transform: translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c22" style="transform: translateX(76px) translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c23" style="transform: translateX(152px) translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c24" style="transform: translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c25" style="transform: translateX(76px) translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c26" style="transform: translateX(152px) translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div id="3x3-cube"><div class="cubelet 3x3--1"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--2"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--3"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--4"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--5"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--6"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--7"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--8"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--9"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--10"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--11"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--12"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--13"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--14"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--15"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--16"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--17"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--18"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--19"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--20"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--21"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--22"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--23"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--24"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--25"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div><div class="cubelet 3x3--26"><div class="cubelet-xplane"></div><div class="cubelet-yplane"></div><div class="cubelet-zplane"></div><div class="cubelet-pocket"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div></div><!-----><div class="measure" style="background-color: red; 
+    left: 105px; top: 310px;"></div><div class="measure" style="background-color: rgb(11,255,0); left: 105px; top: 425px;"></div><div class="measure" style="background-color: red; left: 220px; top: 540px;"></div><div class="measure" style="background-color: rgb(11,255,0); left: 335px; top: 540px;"></div><!-----><!-----><!-----><!-----><!-----><!-----><!-----><!-----><!-----><!-----></body></html>
+
+
+
+
+
+
+
+<style type="text/css">
+.cubelet {
+    position: absolute;
+    width: 228px;
+    height: 228px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transform-origin: 114px 114px;
+    transition: all 3s cubic-bezier(0.96, 0.92, 0.53, 1.51) 0s;
+}
+
+.cubelet div {
+    position: absolute;
+    height: 72px;
+    width: 72px;
+    /* border: 2px solid #000000; */
+    /* opacity: 0.92; */
+    /* backface-visibility: hidden; */
+}
+
+.cubelet-xplane, .cubelet-yplane, .cubelet-zplane {
+    width: 228px !important;
+    height: 228px !important;
+    opacity: 0.025 !important;
+}
+.cubelet-xplane {
+    background-color: #C20000;
+    transform: rotateX(90deg);
+}
+.cubelet-yplane {
+    background-color: #D4AE00;
+    transform: rotateY(90deg);
+}
+.cubelet-zplane {
+    background-color: #00910C;
+    transform: rotateZ(90deg);
+}
+
+.cubelet-front {
+    background-color: #C6C6C6;
+    transform: translateZ(38px);
+}
+.cubelet-back {
+    background-color: #FFEE00;
+    transform: rotateY(180deg) translateZ(38px);
+}
+
+.cubelet-top {
+    background-color: blue;
+    transform: rotateX(90deg) translateZ(38px);
+}
+.cubelet-bottom {
+    background-color: green;
+    transform: rotateX(270deg) translateZ(38px);
+}
+
+.cubelet-left {
+    background-color: rgb(255, 103, 0);
+    transform: rotateY(270deg) translateZ(38px);
+}
+.cubelet-right {
+    background-color: #FF0000;
+    transform: rotateY(90deg) translateZ(38px);
+}
+
+div#master-cube {
+    transform-style: preserve-3d;
+    transform: rotateX(168deg) rotateY(-17deg);
+    transform-origin: 144px 114px 114px;
+    display: none;
+}
+
+.cubelet-pocket {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    border: 0px solid;
+}
+
+div#3x3-cube {
+    position: absolute;
+    top: 310px;
+    left: 220px;
+    width: 228px;
+    height: 228px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.measure {
+    position: absolute;  
+    width: 113px;
+    height: 113px;
+    display: none;
+}
+</style>
+
+https://www.speedsolving.com/wiki/index.php/4x4x4_Parity_Algorithms

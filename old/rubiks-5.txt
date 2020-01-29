@@ -1,0 +1,55 @@
+<html><head><title>Blank Page</title>
+
+<style type="text/css">
+.cubelet {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+}
+
+.cubelet div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: 2px solid #000000;
+    opacity: 0.92;
+    /* backface-visibility: hidden; */
+}
+
+.cubelet-front {
+    background-color: #C6C6C6;
+    transform: translateZ(38px);
+}
+.cubelet-back {
+    background-color: #FFEE00;
+    transform: rotateY(180deg) translateZ(38px);
+}
+
+.cubelet-top {
+    background-color: blue;
+    transform: rotateX(90deg) translateZ(38px);
+}
+.cubelet-bottom {
+    background-color: green;
+    transform: rotateX(270deg) translateZ(38px);
+}
+
+.cubelet-left {
+    background-color: rgb(255, 103, 0);
+    transform: rotateY(270deg) translateZ(38px);
+}
+.cubelet-right {
+    background-color: #FF0000;
+    transform: rotateY(90deg) translateZ(38px);
+}
+
+div#master-cube {
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(-25deg);
+    transform-origin: 114px 114px 114px;
+}
+</style>
+
+</head><body><div class="cubelet" style="transform: rotateX(-45deg) rotateY(138deg) rotateZ(0deg); position: relative; top: 30px; left: 30px;"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="3x3-cube" id="master-cube" style="position: absolute; top: 200px; left: 200px;"><div class="cubelet c1"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c2" style="transform: translateX(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c3" style="transform: translateX(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c4" style="transform: translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c5" style="transform: translateX(76px) translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c6" style="transform: translateX(152px) translateY(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c7" style="transform: translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c8" style="transform: translateX(76px) translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c9" style="transform: translateX(152px) translateY(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c10" style="transform: translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c11" style="transform: translateX(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c12" style="transform: translateX(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c13" style="transform: translateY(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c14" style="transform: translateX(152px) translateY(76px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c15" style="transform: translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c16" style="transform: translateX(76px) translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c17" style="transform: translateX(152px) translateY(152px) translateZ(76px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c18" style="transform: translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c19" style="transform: translateX(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c20" style="transform: translateX(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c21" style="transform: translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c22" style="transform: translateX(76px) translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c23" style="transform: translateX(152px) translateY(76px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c24" style="transform: translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c25" style="transform: translateX(76px) translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div><div class="cubelet c26" style="transform: translateX(152px) translateY(152px) translateZ(152px);"><div class="cubelet-front"></div><div class="cubelet-back"></div><div class="cubelet-top"></div><div class="cubelet-bottom"></div><div class="cubelet-left"></div><div class="cubelet-right"></div></div></div></body></html>

@@ -1,0 +1,20 @@
+4x4 colors
+
+b = blue /	o = orange /	y = yellow /
+w = white /	g = green	r = red /
+
+
+           o o o o
+           o o o o
+           o o o o
+           o o o o
+                                v-- under blue                    
+ w w w w   b b b b   y y y y   g g g g
+ w w w w   b b b b   y y y y   g g g g
+ w w w w   b b b b   y y y y   g g g g
+ w w w w   b b b b   y y y y   g g g g
+
+           r r r r
+           r r r r
+           r r r r
+           r r r r
