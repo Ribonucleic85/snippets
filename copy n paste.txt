@@ -1,0 +1,1 @@
+https://alg.cubing.net/?puzzle=8x8x8&alg=(2R_4R_6R_s-_L2_s_2R-_4R-_6R-_s-_L2_s_(m-_U_m_U-)5%0A2R_4R_6R_s-_L2_s_2R-_4R-_6R-_s-_L2_s_z-_y)3_m-_e_m_e-
