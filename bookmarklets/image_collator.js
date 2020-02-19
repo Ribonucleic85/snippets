@@ -231,21 +231,12 @@ buvar = el.cr('input');
  el.att(buvar, "value", "add");
  el.att(buvar, "onclick", "byId('image').value.addfn(selct.value(byId('addmode'))); byId('image').value=''");
 
-add_mode = (()=>{
-	var e = el.cr('select');
-	el.att(e, "id", "addmode");
-	var i = [
-		["norm", "normal (url untouched)"],
-		["zero", "s0 (when no s#)"],
-		["s0",   "s0 (change s#)"],
-		["chop", "# and ?"]
-	];
-	while (i.length) {
-		selct.addopt(e, i[0][0], i[0][1]),
-		i.shift();
-	};
-	return e;
-})();
+add_mode = el.cr('select');
+  el.att(add_mode, "id", "addmode");
+  selct.addopt(add_mode, "norm", "normal (url untouched)");
+  selct.addopt(add_mode, "zero", "s0 (when no s#)");
+  selct.addopt(add_mode, "s0",   "s0 (change s#)");
+  selct.addopt(add_mode, "chop", "# and ?");
 
 
 dropbox = el.cr("div");
